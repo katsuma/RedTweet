@@ -1,0 +1,6 @@
+<div id="main_cont">
+<h2>Following</h2>
+<%= render :partial => 'shared/users', :locals => {:users => @following} -%>
+</div>
+
+<%= render :partial => 'shared/sidebar', :locals => { :user => @login_user} -%>

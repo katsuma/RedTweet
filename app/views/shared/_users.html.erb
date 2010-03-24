@@ -1,0 +1,13 @@
+<div id ="users">
+<% if users && users.length > 0 -%>
+<ul>
+  <% users.each do |user| -%>
+  <li>
+	<p>
+	  <span class="user_name"><%= link_to user[:name], :controller => :user, :action => :show, :id => user[:id] %></span>
+  </p>
+  </li>
+  <% end -%>
+</ul>
+<% end -%>
+</div>

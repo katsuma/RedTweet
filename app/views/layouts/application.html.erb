@@ -1,0 +1,22 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"> 
+<html> 
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+	<meta http-equiv="Content-Style-Type" content="text/css"> 
+	<meta http-equiv="Content-Script-Type" content="text/javascript"> 
+	<%= stylesheet_link_tag "common" %>
+	<title>RedTweet</title>  
+  </head>
+  <body>
+	<div id="container">
+	  <% target = login? ? { :controller => :user, :action => :home } : { :controller => :status, :action => :public_timeline } -%>
+	  <h1><%= link_to "RedTweet", target %></h1>
+	  
+	<%= yield %>
+	<div id="footer">
+	  <p>RedTweet is a simple Twitter clone written in Ruby on Rails show off the Redis key-value database. 
+		The code is on <%= link_to "Github", "http://github.com/katsuma/RedTweet" %>.</p>
+	</div>
+	</div>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+<div id="main_cont">
+<h2>What's happening?</h2>
+<div id="update_status">
+  <% form_tag({ :controller => :status, :action => :post, :rt => "/public_timeline" }, { :method => :post }) do -%>
+
+  <%= text_area_tag("status", nil) %>
+  
+  <p>
+	<%= submit_tag "Update" %>
+  </p>
+
+
+  <% end -%>
+</div>
+
+<h2>Public Timeline</h2>
+<%= render :partial => 'shared/timeline' -%>
+</div>
+
+<%= render :partial => 'shared/sidebar', :locals => { :user => @login_user } -%>

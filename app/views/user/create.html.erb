@@ -1,0 +1,29 @@
+<h2>Create a new account</h2>
+
+<% if @message -%>
+<div class="error">
+
+<% if @message.include?('require_input')%>
+<p>Enter your account name and password</p>
+
+<% elsif @message.include?('registered_username')%>
+<p>Already registered username</p>
+
+<% end -%>
+</div>
+<% end -%>
+
+
+<% form_tag({ :controller => :user, :action => :create }, { :method => :post }) do -%>
+
+<p><label for="for_username">Name</label></p>
+<%= text_field_tag("username", "", "size" => 50) %>
+
+<p><label for="for_password">Password</label></p>
+<%= password_field_tag("password", "", "size" => 50, :type => "password") %>
+
+<p>
+<%= submit_tag "Create" %>
+</p>
+
+<% end -%>

@@ -1,0 +1,28 @@
+<h2>Login</h2>
+
+<% if @message -%>
+<div class="error">
+
+<% if @message.include?('incorrect_password')%>
+<p>Password is incorrect.</p>
+<% end -%>
+</div>
+<% end -%>
+
+
+<% form_tag({ :controller => :user, :action => :login }, { :method => :post }) do -%>
+
+<p><label for="for_username">Name</label></p>
+<%= text_field_tag("username", "", :size => 50) %>
+
+<p><label for="for_password">Password</label></p>
+<%= text_field_tag("password", "", :size => 50, :type => "password") %>
+
+<p>
+<%= submit_tag "Login" %>
+</p>
+
+<% end -%>
+
+<p><%= link_to "Create a new account", :action => :create -%></p>
+

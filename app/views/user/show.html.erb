@@ -1,0 +1,9 @@
+<div id="main_cont">
+<%= render :partial => 'shared/user_header', :locals => {:user => @user} -%>
+
+<%= render :partial => 'shared/timeline' -%>
+</div>
+
+<% if login? -%>
+<%= render :partial => 'shared/sidebar', :locals => { :user => @login_user } -%>
+<% end -%>

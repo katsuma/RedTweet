@@ -1,0 +1,20 @@
+<div id="timeline">
+  <% if @statuses && @statuses.length > 0 -%>
+  <ul>
+	<% @statuses.each do |status| -%>
+	<li>
+	  <p>
+		<span class="user_name"><%= link_to status[:user][:name], :controller => :user, :action => :show, :id => status[:user][:id] -%></span>
+		<span class="user_status"><%= status[:message] %></span>
+	  </p>
+	  <p>
+		<span class="status_created_at"><%= link_to status[:created_at], :controller => :status, :action => :show, :id => status[:id] %></span>
+	  </p>
+	</li>
+	<% end -%>
+	
+  </ul>
+  <% else -%>
+  <p>No updates.</p>
+  <% end -%>
+</div>

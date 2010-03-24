@@ -1,0 +1,39 @@
+<div id="side_bar">
+  <% if login? -%>
+  <p id="login_name"><%= link_to user[:name], :controller => :user, :action => :show, :id => user[:id] -%></p>
+
+  <div id="user_stats">
+
+	<p><% link_to :controller => :user, :action => :following, :id => user[:id] do -%>
+	  <span class="user_stats_value"><%= user[:following] %></span>
+	  <span class="user_stats_name">Followings</span>
+	  <% end -%>
+	</p>
+
+	<p>
+	  <% link_to :controller => :user, :action => :followers, :id => @login_user[:id] do -%>
+	  <span class="user_stats_value"><%= user[:followers] %></span>
+	  <span class="user_stats_name">Followers</span>
+	  <% end -%>
+	</p>
+
+	  <% link_to :controller => :user, :action => :show, :id => @login_user[:id] do -%>
+	<p><span class="user_stats_value"><%= user[:updates] %></span>
+	  <span class="user_stats_name">Updates</span>
+	  <% end -%>
+	</p>
+
+  </div>
+  <% end -%>
+
+  <div id="other_links">
+	<% if login? -%>
+	
+	<p><%= link_to "PublicTimeline", :controller => :status, :action => :public_timeline %></p>
+	<p><%= link_to "Logout", :controller => :user, :action => :logout %></p>
+	<% else -%>
+	<p><%= link_to "Login", :controller => :user, :action => :login %></p>
+	<% end -%>
+
+  </div>
+</div>
