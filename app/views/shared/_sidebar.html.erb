@@ -1,6 +1,12 @@
 <div id="side_bar">
   <% if login? -%>
-  <p id="login_name"><%= link_to user[:name], :controller => :user, :action => :show, :id => user[:id] -%></p>
+  <p id="login_name">
+	<% if user[:id] == @login_user[:id] -%>
+	<%= link_to user[:name], :controller => :user, :action => :home -%>
+	<% else -%>
+	<%= link_to user[:name], :controller => :user, :action => :show, :id => user[:id] -%>
+	<% end -%>
+  </p>
 
   <div id="user_stats">
 

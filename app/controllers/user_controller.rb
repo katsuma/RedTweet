@@ -3,6 +3,7 @@ class UserController < ApplicationController
   include StatusFunctions
 
   before_filter :require_login, :except => [:create, :login]
+  MERGE_MAX_POSTS = 100
 
   def create
     return unless request.post?
@@ -94,7 +95,7 @@ class UserController < ApplicationController
     page = params[:page] || "1"
     per_page = 20
     start_index = per_page * (page.to_i - 1)
-    id = @login_user.id if id == 0
+    id = @login_user[:id] if id == 0
     followers_ids = @redis.zrange("uid:#{id}:followers", start_index, start_index + per_page)
 
     @followers = []
@@ -109,8 +110,23 @@ class UserController < ApplicationController
     score = Time.now.to_i
     @redis.zadd("uid:#{id}:followers", score, @login_user[:id])
     @redis.zadd("uid:#{@login_user[:id]}:following", score, id)
+    merge_timeline id
     return redirect_to :controller => :user, :action => :show, :id => id, :follow => 1
   end
+
+  def merge_timeline(user_id)
+    my_id = @login_user[:id]
+    return if @redis.type?("uid:#{user_id}:posts") == "none"
+
+    user_statuses = @redis.lrange("uid:#{user_id}:posts", 0, 100)
+    user_statuses.each do |status|
+      @redis.lpush("uid:#{my_id}:home", status)
+    end
+    @redis.sort("uid:#{my_id}:home", :order => "desc alpha", :store => "uid:#{my_id}:home:new")
+    @redis.delete("uid:#{my_id}:home")
+    @redis.rename("uid:#{my_id}:home:new", "uid:#{my_id}:home")
+  end
+  private :merge_timeline
 
   def remove
     id = (params[:id] || "0").to_i

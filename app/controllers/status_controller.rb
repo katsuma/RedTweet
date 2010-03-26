@@ -7,7 +7,7 @@ class StatusController < ApplicationController
 
     post_id = @redis.incr("global:nextPostId")
     user_id = @login_user[:id]
-    status = "#{user_id}|#{Time.now}|#{params[:status]}"
+    status = "#{Time.now}|#{post_id}|#{user_id}|#{params[:status]}"
     @redis.set("post:#{post_id}", status)
 
     # self
