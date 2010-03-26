@@ -122,9 +122,7 @@ class UserController < ApplicationController
     user_statuses.each do |status|
       @redis.lpush("uid:#{my_id}:home", status)
     end
-    @redis.sort("uid:#{my_id}:home", :order => "desc alpha", :store => "uid:#{my_id}:home:new")
-    @redis.delete("uid:#{my_id}:home")
-    @redis.rename("uid:#{my_id}:home:new", "uid:#{my_id}:home")
+    @redis.sort("uid:#{my_id}:home", :order => "desc alpha", :store => "uid:#{my_id}:home")
   end
   private :merge_timeline
 
