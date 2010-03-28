@@ -8,7 +8,7 @@
 		<span class="user_status"><%= status[:message] %></span>
 	  </p>
 	  <p>
-		<span class="status_created_at"><%= link_to status[:created_at], :controller => :status, :action => :show, :id => status[:id] %></span>
+		<span class="status_created_at"><%= link_to "#{time_format(status[:created_at])} ago", :controller => :status, :action => :show, :id => status[:id] %></span>
 	  </p>
 	</li>
 	<% end -%>
